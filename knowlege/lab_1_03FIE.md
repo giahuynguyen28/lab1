@@ -61,19 +61,27 @@ output screenshot (optional)
 ***Step1***
 First we login to the web with username: bee, password: bug
 ![image](https://github.com/user-attachments/assets/6f445219-db7b-42fe-ba05-df6fd2b57b07)
+
+
 ***Step2***
 After that, we choose SQL Injection (get/select) option and click Hack button
 ![image](https://github.com/user-attachments/assets/68ba1787-ad5d-4cb2-bdb7-ea59a73df331)
+
+
 ***Step3***
 We will be redirected to the page http://localhost:8025/sqli_2.php
 We collect the cookie of the webpage
 ![image](https://github.com/user-attachments/assets/24420808-15de-4de0-9a18-28aef6a30bd4)
 We can observe that the cookie = qsfi47oc645khe9eimnnr9kcm5; security_level=0
+
+
 ***Step4***
 We will start using SQLMap to find the existing databases of the website.
 Run the command: python sqlmap.py -u "http://localhost:8025/sqli_2.php?movie=1" --dbs --cookie="qsfi47oc645khe9eimnnr9kcm5; security_level=0"
 Explain the command: This command runs SQLMap to test the URL http://localhost:8025/sqli_2.php?movie=1 for SQL injection vulnerabilities. The --dbs option instructs SQLMap to enumerate and display the databases available on the target server. The --cookie option provides session cookies for authentication, allowing SQLMap to interact with the web application as an authenticated user.
-Result: ![image](https://github.com/user-attachments/assets/5e009099-2b49-494e-8524-0ef11f38168d)
+Result:
+![image](https://github.com/user-attachments/assets/5e009099-2b49-494e-8524-0ef11f38168d)
+
 We can see that there are 4 available database: bWAPP, information_schema, mysql, performance_schema
 
 **Question 2**: Use sqlmap to get tables, users information
