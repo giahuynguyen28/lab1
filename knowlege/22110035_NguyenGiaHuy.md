@@ -311,19 +311,22 @@ Password (Hashed): 6885858486f31043e5839c735d99457f045affd0
 ***Step1***
 
 
-Tải John Ripper thông qua đường link: https://www.openwall.com/john/
+Download John Ripper via the link: https://www.openwall.com/john/
 
 
 ***Step2***
 
 
-Chạy terminal trong thư mục run 
+Run terminal in run directory
+
+
+![image](https://github.com/user-attachments/assets/c89368b1-0679-4208-9a91-8f3cf92469de)
 
 
 ***Step3***
 
 
-Lưu password của 2 user trong 1 file txt
+Save passwords of 2 users in 1 txt file
 
 
 ![image](https://github.com/user-attachments/assets/c32d03e7-e6e4-48ce-b012-77a213f71dc0)
@@ -332,17 +335,17 @@ Lưu password của 2 user trong 1 file txt
 ***Step4***
 
 
-Chạy lệnh ./john D:/pw.txt
+Run the command ./john D:/pw.txt
 
 
-Và ra được kết quả 
+And get the results
 
 
 ![image](https://github.com/user-attachments/assets/8258a0f7-f487-4c97-99c4-f612b7d4421f)
 
 
 ***Step5***
-Login thử với password đã được giải mã:
+Try log in with the decrypted password:
 Login: A.I.M.
 Password (Hashed): 6885858486f31043e5839c735d99457f045affd0
 
@@ -350,7 +353,7 @@ Password (Hashed): 6885858486f31043e5839c735d99457f045affd0
 ![image](https://github.com/user-attachments/assets/1cce6875-02b6-438a-b3c6-fd1a648c3284)
 
 
-Login thành công và ta có thể thấy được đã vào được trang chủ của admin A.I.M.
+Login is successful and we can see that we have reached the A.I.M admin home page.
 
 
 ![image](https://github.com/user-attachments/assets/a591b179-62b1-4455-94ff-b4d0b52f5b2e)
