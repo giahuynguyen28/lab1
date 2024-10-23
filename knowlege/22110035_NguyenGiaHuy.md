@@ -279,6 +279,73 @@ Result:
 
 
 Based on the image above, we can see the user information and hashed passwords
+Here are the two users with their corresponding hashed passwords:
+
+User 1:
+
+Email: bwapp-aim@mailinator.com
+Login: A.I.M.
+Password (Hashed): 6885858486f31043e5839c735d99457f045affd0
+User 2:
+
+Email: bwapp-bee@mailinator.com
+Login: bee
+Password (Hashed): 6885858486f31043e5839c735d99457f045affd0
 
 **Question 3**: Make use of John the Ripper to disclose the password of all database users from the above exploit
 **Answer 3**:
+
+***Step1***
+
+
+Tải John Ripper thông qua đường link: https://www.openwall.com/john/
+
+
+***Step2***
+
+
+Chạy terminal trong thư mục run 
+
+
+***Step3***
+
+
+Lưu password của 2 user trong 1 file txt
+
+
+![image](https://github.com/user-attachments/assets/c32d03e7-e6e4-48ce-b012-77a213f71dc0)
+
+
+***Step4***
+
+
+Chạy lệnh ./john D:/pw.txt
+
+
+Và ra được kết quả 
+
+
+![image](https://github.com/user-attachments/assets/8258a0f7-f487-4c97-99c4-f612b7d4421f)
+
+
+***Step5***
+Login thử với password đã được giải mã:
+Login: A.I.M.
+Password (Hashed): 6885858486f31043e5839c735d99457f045affd0
+
+
+![image](https://github.com/user-attachments/assets/1cce6875-02b6-438a-b3c6-fd1a648c3284)
+
+
+Login thành công và ta có thể thấy được đã vào được trang chủ của admin A.I.M.
+
+
+![image](https://github.com/user-attachments/assets/a591b179-62b1-4455-94ff-b4d0b52f5b2e)
+
+
+
+![image](https://github.com/user-attachments/assets/8e5bf38b-61f3-4f7e-8505-acc23a07c391)
+
+
+
+
